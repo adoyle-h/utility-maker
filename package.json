@@ -1,0 +1,39 @@
+{
+  "name": "utility-maker",
+  "version": "1.0.0",
+  "description": "Make your utilities library",
+  "main": "src/index.js",
+  "keywords": [
+    "utility"
+  ],
+  "scripts": {
+    "test": "ava",
+    "cov": "nyc npm test"
+  },
+  "author": "ADoyle <adoyle.h@gmail.com>",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/adoyle-h/utility-maker",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/adoyle-h/utility-maker.git"
+  },
+  "bugs": {
+    "url": "https://github.com/adoyle-h/utility-maker/issues"
+  },
+  "engines": {
+    "node": ">=6"
+  },
+  "devDependencies": {
+    "ava": "^0.17.0",
+    "lodash": "4.17.2",
+    "ms": "^0.7.2",
+    "nyc": "^10.0.0",
+    "sprintf-js": "^1.0.3"
+  },
+  "ava": {
+    "files": [
+      "test/**/*.js",
+      "!test/fixture/*.js"
+    ]
+  }
+}
