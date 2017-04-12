@@ -8,7 +8,15 @@
   ],
   "scripts": {
     "test": "ava",
-    "cov": "nyc npm test"
+    "cov": "nyc npm test",
+    "pub": "npm run pub-patch",
+    "pub-patch": "npm-run-all version-patch pub-common",
+    "pub-minor": "npm-run-all version-minor pub-common",
+    "pub-major": "npm-run-all version-major pub-common",
+    "pub-common": "npm publish && git push --tags && git rebase develop master && git push --all && git checkout develop",
+    "version-patch": "npm version patch -m 'Bump: patch version to %s'",
+    "version-minor": "npm version minor -m 'Bump: minor version to %s'",
+    "version-major": "npm version major -m 'Bump: major version to %s'"
   },
   "author": "ADoyle <adoyle.h@gmail.com>",
   "license": "Apache-2.0",
@@ -27,6 +35,7 @@
     "ava": "^0.17.0",
     "lodash": "4.17.2",
     "ms": "^0.7.2",
+    "npm-run-all": "^4.0.2",
     "nyc": "^10.0.0",
     "sprintf-js": "^1.0.3"
   },
