@@ -52,6 +52,7 @@ Or mixin files:
 
 ```js
 // util/index.js
+const Path = require('path');
 const utilMaker = require('utility-maker');
 const baseDir = Path.resolve(__dirname);
 const util = utilMaker()
