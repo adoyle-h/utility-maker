@@ -15,6 +15,9 @@ Make your utilities library.
 
 - [Installation](#installation)
 - [Quick Start](#quick-start)
+    - [Mixin JSON objects](#mixin-json-objects)
+    - [Mixin files](#mixin-files)
+    - [Mixin Recommends](#mixin-recommends)
 - [Feature](#feature)
 - [API](#api)
 - [Versioning](#versioning)
@@ -30,25 +33,58 @@ Make your utilities library.
 <a name="quick-start"></a>
 ## Quick Start
 
-Mixin JSON:
+Write your util functions to separate files.
+
+```js
+// util/custom.js
+module.exports = {
+    version: 1,
+    test: () => console.log('test'),
+};
+```
+
+```js
+// util/overrides.js
+module.exports = {
+    hello: () => console.log('world'),
+};
+```
+
+```js
+// util/overrides.js
+module.exports = {
+    hello: () => console.log('world'),
+};
+```
+
+```js
+// util/libs.js
+module.exports = {
+    libs: () => console.log('libs'),
+};
+```
+
+Then you could choose one of these below:
+
+### Mixin JSON objects
 
 ```js
 // util/index.js
 const utilMaker = require('utility-maker');
-const third = require('./third_party');
+const libs = require('./libs');
 const overrides = require('./override');
-const mixin = require('./mixin');
+const custom = require('./custom');
 
 const util = utilMaker()
-    .mixin(third)
+    .mixin(libs)
     .mixin(overrides, {override: true})
-    .mixin(mixin)
+    .mixin(custom)
     .done();
 
 module.exports = util;
 ```
 
-Or mixin files:
+### Mixin files
 
 ```js
 // util/index.js
@@ -57,8 +93,8 @@ const utilMaker = require('utility-maker');
 const baseDir = Path.resolve(__dirname);
 const util = utilMaker()
     .load([
-        'third_party',
-        'mixin',
+        'libs',
+        'custom',
     ], {baseDir})
     .load([
         'override',
@@ -68,14 +104,26 @@ const util = utilMaker()
 module.exports = util;
 ```
 
-Examples:
+### Mixin Recommends
 
 ```js
-// util/mixin.js
-module.exports = {
-    version: 1,
-    test: () => console.log('test'),
-};
+const utilMaker = require('utility-maker');
+const baseDir = __dirname;
+
+module.exports = utilMaker()
+    .mixinNodeUtil()
+    .mixinRecommends()
+    .mixinRecommends('lodash', require('lodash'))
+    .load([
+        'libs',
+    ], {baseDir})
+    .load([
+        'overrides',
+    ], {baseDir, override: true})
+    .load([
+        'custom',
+    ], {baseDir})
+    .done();
 ```
 
 <a name="feature"></a>
